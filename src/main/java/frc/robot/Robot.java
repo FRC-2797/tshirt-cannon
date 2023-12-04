@@ -18,19 +18,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  */
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class Robot extends TimedRobot {
-  CANSparkMax left = new CANSparkMax(2, MotorType.kBrushless);
-  CANSparkMax right = new CANSparkMax(1, MotorType.kBrushless);
-  DifferentialDrive drive = new DifferentialDrive(left, right);
   XboxController controller = new XboxController(0);
-  
-  @Override
-  public void robotInit() {
-    left.setInverted(false);
-    right.setInverted(false);
-  }
-
+  Drivetrain drivetrain = new Drivetrain();
+ 
   @Override
   public void teleopPeriodic() {
-    drive.arcadeDrive(controller.getLeftX(),controller.getLeftY());
+    drivetrain.arcadeDrive(controller.getLeftY()*-1,controller.getRightY()*-1);
   }
 }
