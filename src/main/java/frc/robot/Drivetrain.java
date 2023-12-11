@@ -18,7 +18,7 @@ public class Drivetrain {
     }
 
     public void driveForwardSlowly() {
-        final double speed = 0.15;
+        final double speed = 0.2;
         right.set(speed);
         left.set(speed);
     }
