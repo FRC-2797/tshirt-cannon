@@ -12,11 +12,26 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class Robot extends TimedRobot {
-  XboxController controller = new XboxController(0);
+  GuitarHeroController controller = new GuitarHeroController(0);
   Drivetrain drivetrain = new Drivetrain();
  
   @Override
   public void teleopPeriodic() {
-    drivetrain.arcadeDrive(controller.getLeftY()*-1,controller.getRightY()*-1);
+    final double speed = (controller.getFiddleStick()*0.5)+0.52;
+
+    double xSpeed = 0;
+    double rotation = 0;
+
+    if (controller.getStrumUp()) {
+      xSpeed += speed;
+    } else if (controller.getStrumDown()) {
+      xSpeed -= speed;
+    } else if (controller.getGreenButton()) {
+      rotation += speed;
+    } else if (controller.getRedButton()) {
+      rotation -= speed;
+    }
+
+    drivetrain.arcadeDrive(xSpeed, rotation);
   }
 }
