@@ -13,14 +13,16 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class Robot extends TimedRobot {
   GuitarHeroController controller = new GuitarHeroController(0);
+  CANSparkMax aim = new CANSparkMax(3, MotorType.kBrushless);
   Drivetrain drivetrain = new Drivetrain();
  
   @Override
   public void teleopPeriodic() {
     final double speed = (controller.getFiddleStick()*0.5)+0.52;
-
+    final double turn = 0.5;
     double xSpeed = 0;
     double rotation = 0;
+    double aimPower = 0;
 
     if (controller.getStrumUp()) {
       xSpeed += speed;
@@ -30,8 +32,13 @@ public class Robot extends TimedRobot {
       rotation += speed;
     } else if (controller.getRedButton()) {
       rotation -= speed;
+    } else if (controller.getStartButton()) {
+      aimPower += 0.1;
+    } else if (controller.getMinusButton()) {
+      aimPower += -0.1;
     }
 
+    aim.set(aimPower);
     drivetrain.arcadeDrive(xSpeed, rotation);
   }
 }
