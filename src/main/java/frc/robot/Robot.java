@@ -18,7 +18,7 @@ public class Robot extends TimedRobot {
  
   @Override
   public void teleopPeriodic() {
-    final double speed = (controller.getFiddleStick()*0.5)+0.52;
+    final double speed = (controller.getFiddleStick()*0.5)+0.54;
     final double turn = 0.5;
     double xSpeed = 0;
     double rotation = 0;
@@ -28,11 +28,13 @@ public class Robot extends TimedRobot {
       xSpeed += speed;
     } else if (controller.getStrumDown()) {
       xSpeed -= speed;
-    } else if (controller.getGreenButton()) {
+    }
+    if (controller.getGreenButton()) {
       rotation += speed;
     } else if (controller.getRedButton()) {
       rotation -= speed;
-    } else if (controller.getStartButton()) {
+    } 
+    if (controller.getStartButton()) {
       aimPower += 0.1;
     } else if (controller.getMinusButton()) {
       aimPower += -0.1;
